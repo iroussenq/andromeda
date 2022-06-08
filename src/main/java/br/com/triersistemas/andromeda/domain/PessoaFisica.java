@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SplittableRandom;
+import java.util.UUID;
 
 public abstract class PessoaFisica extends Pessoa {
 
     private String cpf;
+    private String id;
 
     protected PessoaFisica() {
         SplittableRandom r = new SplittableRandom();
@@ -20,6 +22,7 @@ public abstract class PessoaFisica extends Pessoa {
 
     protected PessoaFisica(final String nome, final LocalDate niver, final String cpf) {
         super(nome, niver);
+        this.id = UUID.randomUUID().toString();
         this.cpf = extractNumbers(cpf);
     }
 
@@ -38,6 +41,11 @@ public abstract class PessoaFisica extends Pessoa {
             return geraCpf(digitos.subList(0, 9)).equals(this.cpf);
         }
         return false;
+    }
+    
+    @Override
+    public String getId() {
+    	return id;
     }
 
     @Override

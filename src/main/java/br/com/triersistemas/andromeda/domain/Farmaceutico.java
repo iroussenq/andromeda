@@ -8,7 +8,6 @@ import java.util.SplittableRandom;
 public class Farmaceutico extends PessoaFisica {
 
     private String ofertaDia;
-    private String uuID;
 
     public Farmaceutico() {
         geraOferta();
@@ -16,12 +15,7 @@ public class Farmaceutico extends PessoaFisica {
 
     public Farmaceutico(final String nome, final LocalDate niver, final String cpf) {
         super(nome, niver, cpf);
-        this.uuID = getUuID();
         geraOferta();
-    }
-    
-    public String getUuID() {
-    	return uuID;
     }
 
     public String getOfertaDia() {
@@ -46,4 +40,5 @@ public class Farmaceutico extends PessoaFisica {
 
         this.ofertaDia = lista.get(r.nextInt(0, lista.size()));
     }
+
 }

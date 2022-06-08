@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.SplittableRandom;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Pessoa {
@@ -56,8 +57,8 @@ public abstract class Pessoa {
 	}
 
 	public abstract String getDocumento();
-
 	public abstract boolean getDocumentoValido();
+	public abstract String getId();
 
 	protected int mod11(final List<Integer> digitos, final int... multiplicadores) {
 		final var i = new AtomicInteger(0);

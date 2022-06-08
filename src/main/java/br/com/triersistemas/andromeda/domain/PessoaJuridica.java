@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SplittableRandom;
+import java.util.UUID;
 
 public abstract class PessoaJuridica extends Pessoa {
 
     private String cnpj;
+    private String id;
 
     protected PessoaJuridica() {
         SplittableRandom r = new SplittableRandom();
@@ -20,6 +22,7 @@ public abstract class PessoaJuridica extends Pessoa {
 
     protected PessoaJuridica(final String nome, final LocalDate niver, final String cnpj) {
         super(nome, niver);
+        this.id = UUID.randomUUID().toString();
         this.cnpj = extractNumbers(cnpj);
     }
 
@@ -37,6 +40,10 @@ public abstract class PessoaJuridica extends Pessoa {
             return cnpj.replaceAll("(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})", "$1.$2.$3/$4-$5");
         }
         return cnpj;
+    }
+    @Override
+    public String getId() {
+    	return id;
     }
 
     @Override
