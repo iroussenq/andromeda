@@ -1,15 +1,15 @@
 package br.com.triersistemas.andromeda.domain;
 
+import br.com.triersistemas.andromeda.util.StringUtils;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SplittableRandom;
-import java.util.UUID;
 
 public abstract class PessoaJuridica extends Pessoa {
 
     private String cnpj;
-    private String id;
 
     protected PessoaJuridica() {
         SplittableRandom r = new SplittableRandom();
@@ -22,16 +22,18 @@ public abstract class PessoaJuridica extends Pessoa {
 
     protected PessoaJuridica(final String nome, final LocalDate niver, final String cnpj) {
         super(nome, niver);
-        this.id = UUID.randomUUID().toString();
-        this.cnpj = extractNumbers(cnpj);
+        this.cnpj = StringUtils.extractNumbers(cnpj);
+    }
+
+    public void editar(final String nome, final LocalDate niver, final String cnpj) {
+        super.editar(nome, niver);
+        this.cnpj = StringUtils.extractNumbers(cnpj);
     }
 
     private String geraCnpj(final List<Integer> digitos) {
         digitos.add(super.mod11(digitos, 6, 7, 8, 9, 2, 3, 4, 5, 6, 7, 8, 9));
         digitos.add(super.mod11(digitos, 5, 6, 7, 8, 9, 2, 3, 4, 5, 6, 7, 8, 9));
-        return digitos.stream()
-                .map(Object::toString)
-                .reduce("", (p, e) -> p + e);
+        return StringUtils.listToString(digitos);
     }
 
     @Override
@@ -41,14 +43,10 @@ public abstract class PessoaJuridica extends Pessoa {
         }
         return cnpj;
     }
-    @Override
-    public String getId() {
-    	return id;
-    }
 
     @Override
     public boolean getDocumentoValido() {
-        final List<Integer> digitos = extractNumbersToList(this.cnpj);
+        final List<Integer> digitos = StringUtils.extractNumbersToList(this.cnpj);
         if (digitos.size() == 14 && digitos.stream().distinct().count() > 1) {
             return geraCnpj(digitos.subList(0, 12)).equals(this.cnpj);
         }

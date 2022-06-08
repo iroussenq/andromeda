@@ -1,8 +1,8 @@
 package br.com.triersistemas.andromeda.controller;
 
-import br.com.triersistemas.andromeda.domain.Fornecedor;
+import br.com.triersistemas.andromeda.domain.Cliente;
 import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
-import br.com.triersistemas.andromeda.model.FornecedorModel;
+import br.com.triersistemas.andromeda.model.ClienteModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,40 +10,34 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/fornecedor")
-public class FornecedorController {
+@RequestMapping("/clientes")
+public class ClienteController {
 
-    private static final List<Fornecedor> LIST = new ArrayList<>();
+    private static final List<Cliente> LIST = new ArrayList<>();
 
     @GetMapping("/consultar")
-    public List<Fornecedor> consultar() {
+    public List<Cliente> consultar() {
         return LIST;
     }
 
     @PostMapping("/cadastrar")
-    public List<Fornecedor> cadastrar(@RequestBody FornecedorModel model) {
-        LIST.add(new Fornecedor(model.getNome(), model.getNiver(), model.getCnpj()));
-        return LIST;
-    }
-
-    @PostMapping("/cadastrar-random")
-    public List<Fornecedor> cadastrarRandom() {
-        LIST.add(new Fornecedor());
+    public List<Cliente> cadastrar(@RequestBody ClienteModel model) {
+        LIST.add(new Cliente(model.getNome(),model.getNiver() , model.getCpf(), model.getEmail()));
         return LIST;
     }
 
     @PutMapping("/alterar/{id}")
-    public List<Fornecedor> alterar(@PathVariable UUID id, @RequestBody FornecedorModel model) {
+    public List<Cliente> alterar(@PathVariable UUID id, @RequestBody ClienteModel model) {
         var domain = LIST.stream()
                 .filter(x -> x.getId().equals(id))
                 .findFirst()
                 .orElseThrow(NaoExisteException::new);
-        domain.editar(model.getNome(), model.getNiver(), model.getCnpj());
+        domain.editarCliente(model.getNome(), model.getNiver(), model.getCpf(),model.getEmail());
         return LIST;
     }
 
     @DeleteMapping("/remover/{id}")
-    public List<Fornecedor> remover(@PathVariable UUID id) {
+    public List<Cliente> remover(@PathVariable UUID id) {
         var domain = LIST.stream()
                 .filter(x -> x.getId().equals(id))
                 .findFirst()

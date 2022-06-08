@@ -2,10 +2,11 @@ package br.com.triersistemas.andromeda.model;
 
 import java.time.LocalDate;
 
-public class FornecedorModel {	
+public class ClienteModel {
 	private String nome;
 	private LocalDate niver;
-	private String cnpj;
+	private String cpf;
+	private String email;
 	
 	public String getNome() {
 		return nome;
@@ -13,7 +14,10 @@ public class FornecedorModel {
 	public LocalDate getNiver() {
 		return niver;
 	}
-	public String getCnpj() {
-		return cnpj;
+	public String getCpf() {
+		return cpf;
+	}
+	public String getEmail() {
+		return email;
 	}
 }
