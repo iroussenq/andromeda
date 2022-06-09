@@ -1,8 +1,8 @@
 package br.com.triersistemas.andromeda.controller;
 
-import br.com.triersistemas.andromeda.domain.Cliente;
+import br.com.triersistemas.andromeda.domain.Produto;
 import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
-import br.com.triersistemas.andromeda.model.ClienteModel;
+import br.com.triersistemas.andromeda.model.ProdutoModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,39 +10,39 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/clientes")
-public class ClienteController {
+@RequestMapping("/produto")
+public class ProdutoController {
 
-    private static final List<Cliente> LIST = new ArrayList<>();
+    public static final List<Produto> LIST = new ArrayList<>();
 
     @GetMapping("/consultar")
-    public List<Cliente> consultar() {
+    public List<Produto> consultar() {
         return LIST;
     }
 
     @PostMapping("/cadastrar")
-    public List<Cliente> cadastrar(@RequestBody ClienteModel model) {
-        LIST.add(new Cliente(model.getNome(),model.getNiver() , model.getCpf(), model.getEmail()));
-        return LIST;
+    public Produto cadastrar(@RequestBody ProdutoModel model) {
+        var domain = new Produto(model.getNome(), model.getValor());
+        LIST.add(domain);
+        return domain;
     }
 
     @PutMapping("/alterar/{id}")
-    public List<Cliente> alterar(@PathVariable UUID id, @RequestBody ClienteModel model) {
+    public Produto remover(@PathVariable UUID id, @RequestBody ProdutoModel model) {
         var domain = LIST.stream()
                 .filter(x -> x.getId().equals(id))
                 .findFirst()
                 .orElseThrow(NaoExisteException::new);
-        domain.editar(model.getNome(), model.getNiver(), model.getCpf(),model.getEmail());
-        return LIST;
+        return domain.editar(model.getNome(), model.getValor());
     }
 
     @DeleteMapping("/remover/{id}")
-    public List<Cliente> remover(@PathVariable UUID id) {
+    public Produto remover(@PathVariable UUID id) {
         var domain = LIST.stream()
                 .filter(x -> x.getId().equals(id))
                 .findFirst()
                 .orElseThrow(NaoExisteException::new);
         LIST.remove(domain);
-        return LIST;
+        return domain;
     }
 }
