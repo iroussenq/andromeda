@@ -13,7 +13,7 @@ import java.util.UUID;
 @RequestMapping("/farmaceutico")
 public class FarmaceuticoController {
 
-    private static final List<Farmaceutico> LIST = new ArrayList<>();
+    public static final List<Farmaceutico> LIST = new ArrayList<>();
 
     @GetMapping("/consultar")
     public List<Farmaceutico> consultar() {

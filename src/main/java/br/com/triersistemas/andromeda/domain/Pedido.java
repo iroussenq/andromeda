@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import br.com.triersistemas.andromeda.enun.EnumStatusPedido;
+
 public class Pedido {
 
     private final UUID id;
@@ -18,6 +20,7 @@ public class Pedido {
     private LocalDateTime dataEmissao;
     private LocalDateTime pagamento;
     private LocalDateTime cancelamento;
+    private EnumStatusPedido status;
 
     public Pedido(final Farmaceutico farmaceutico, final Cliente cliente) {
         this.id = UUID.randomUUID();
@@ -28,19 +31,23 @@ public class Pedido {
         this.valorPago = BigDecimal.ZERO;
         this.trocado = BigDecimal.ZERO;
         this.dataEmissao = LocalDateTime.now();
+        this.status = EnumStatusPedido.PENDENTE;
     }
 
     public Pedido adicionaProdutos(final List<Produto> produtos) {
+    	if(EnumStatusPedido.PENDENTE.equals(this.status)) {
             this.produtos.addAll(produtos);
             this.valor = this.produtos.stream().map(Produto::getValor).reduce(BigDecimal.ZERO, BigDecimal::add);
+    	}
         return this;
     }
 
     public Pedido pagar(final BigDecimal valor) {
-        if (valor.compareTo(this.valor) > 0) {
+        if (valor.compareTo(this.valor) >= 0 && EnumStatusPedido.PENDENTE.equals(this.status)) {
             this.valorPago = valor;
             this.trocado = this.valorPago.subtract(this.valor);
             this.pagamento = LocalDateTime.now();
+            this.status = EnumStatusPedido.PAGO;
         }
         return this;
     }

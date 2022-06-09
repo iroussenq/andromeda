@@ -13,8 +13,7 @@ public class Produto {
 
     public Produto(final String nome, final BigDecimal valor) {
         this.id = UUID.randomUUID();
-        this.nome = nome;
-        this.valor = valor;
+        editar(nome, valor);
     }
 
     public Produto editar(final String nome, final BigDecimal valor) {
