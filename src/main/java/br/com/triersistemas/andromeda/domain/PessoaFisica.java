@@ -1,6 +1,6 @@
 package br.com.triersistemas.andromeda.domain;
 
-import br.com.triersistemas.andromeda.util.StringUtils;
+import br.com.triersistemas.andromeda.helper.StringUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

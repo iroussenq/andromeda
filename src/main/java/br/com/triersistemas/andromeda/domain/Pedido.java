@@ -1,95 +1,58 @@
 package br.com.triersistemas.andromeda.domain;
 
+import br.com.triersistemas.andromeda.enums.EnumStatusPedido;
+import lombok.Getter;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import br.com.triersistemas.andromeda.enun.EnumStatusPedido;
-
+@Getter
 public class Pedido {
 
-    private final UUID id;
-    private Farmaceutico farmaceutico;
+    private UUID id;
     private Cliente cliente;
+    private Farmaceutico farmaceutico;
     private List<Produto> produtos;
     private BigDecimal valor;
     private BigDecimal valorPago;
-    private BigDecimal trocado;
-    private LocalDateTime dataEmissao;
-    private LocalDateTime pagamento;
-    private LocalDateTime cancelamento;
+    private BigDecimal troco;
+    private LocalDateTime data;
+    private LocalDateTime dataPagamento;
     private EnumStatusPedido status;
 
-    public Pedido(final Farmaceutico farmaceutico, final Cliente cliente) {
+    public Pedido(final Cliente cliente, final Farmaceutico farmaceutico) {
         this.id = UUID.randomUUID();
-        this.farmaceutico = farmaceutico;
         this.cliente = cliente;
+        this.farmaceutico = farmaceutico;
         this.produtos = new ArrayList<>();
         this.valor = BigDecimal.ZERO;
         this.valorPago = BigDecimal.ZERO;
-        this.trocado = BigDecimal.ZERO;
-        this.dataEmissao = LocalDateTime.now();
+        this.troco = BigDecimal.ZERO;
+        this.data = LocalDateTime.now();
         this.status = EnumStatusPedido.PENDENTE;
     }
 
-    public Pedido adicionaProdutos(final List<Produto> produtos) {
-    	if(EnumStatusPedido.PENDENTE.equals(this.status)) {
+    public Pedido adicionarProduto(final List<Produto> produtos) {
+        if (EnumStatusPedido.PENDENTE.equals(this.status)) {
             this.produtos.addAll(produtos);
-            this.valor = this.produtos.stream().map(Produto::getValor).reduce(BigDecimal.ZERO, BigDecimal::add);
-    	}
-        return this;
-    }
-
-    public Pedido pagar(final BigDecimal valor) {
-        if (valor.compareTo(this.valor) >= 0 && EnumStatusPedido.PENDENTE.equals(this.status)) {
-            this.valorPago = valor;
-            this.trocado = this.valorPago.subtract(this.valor);
-            this.pagamento = LocalDateTime.now();
-            this.status = EnumStatusPedido.PAGO;
+            this.valor = this.produtos.stream()
+                    .map(Produto::getValor)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
         }
         return this;
     }
 
-	public UUID getId() {
-		return id;
-	}
-
-	public Farmaceutico getFarmaceutico() {
-		return farmaceutico;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
-
-	public BigDecimal getValor() {
-		return valor;
-	}
-
-	public BigDecimal getValorPago() {
-		return valorPago;
-	}
-
-	public BigDecimal getTrocado() {
-		return trocado;
-	}
-
-	public LocalDateTime getDataEmissao() {
-		return dataEmissao;
-	}
-
-	public LocalDateTime getPagamento() {
-		return pagamento;
-	}
-
-	public LocalDateTime getCancelamento() {
-		return cancelamento;
-	}
-    
+    public Pedido pagar(final BigDecimal valor) {
+        if (EnumStatusPedido.PENDENTE.equals(this.status) && valor.compareTo(this.valor) >= 0) {
+            this.valorPago = valor;
+            this.troco = this.valorPago.subtract(this.valor);
+            this.dataPagamento = LocalDateTime.now();
+            this.status = EnumStatusPedido.PAGO;
+        }
+        return this;
+    }
 }

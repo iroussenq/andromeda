@@ -3,10 +3,10 @@ package br.com.triersistemas.andromeda.model;
 import java.time.LocalDate;
 
 public class FarmaceuticoModel {
-	private String nome;
-	private LocalDate niver;
-	private String cpf;
-	
+    private String nome;
+    private LocalDate niver;
+    private String cpf;
+    
 	public String getNome() {
 		return nome;
 	}
@@ -16,5 +16,4 @@ public class FarmaceuticoModel {
 	public String getCpf() {
 		return cpf;
 	}
-	
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+@Getter
 public class Produto {
 
     private UUID id;
@@ -13,7 +14,7 @@ public class Produto {
 
     public Produto(final String nome, final BigDecimal valor) {
         this.id = UUID.randomUUID();
-        editar(nome, valor);
+        this.editar(nome, valor);
     }
 
     public Produto editar(final String nome, final BigDecimal valor) {
@@ -21,17 +22,4 @@ public class Produto {
         this.valor = valor;
         return this;
     }
-
-	public UUID getId() {
-		return id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public BigDecimal getValor() {
-		return valor;
-	}
-    
 }

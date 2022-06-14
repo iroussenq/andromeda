@@ -1,8 +1,9 @@
 package br.com.triersistemas.andromeda.domain;
 
-import br.com.triersistemas.andromeda.util.StringUtils;
+import br.com.triersistemas.andromeda.helper.StringUtils;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -55,6 +56,14 @@ public abstract class Pessoa {
     public abstract boolean getDocumentoValido();
 
     protected int mod11(final List<Integer> digitos, final int... multiplicadores) {
+        /*
+        int soma = 0;
+        for (int i = 0; i < multiplicadores.length; i++) {
+            soma += digitos.get(i) * multiplicadores[i];
+        }
+        int resto = soma % 11;
+        return resto > 9 ? 0 : resto;
+        */
         final var i = new AtomicInteger(0);
         final var resto = digitos.stream()
                 .reduce(0, (p, e) -> p + e * multiplicadores[i.getAndIncrement()]) % 11;
