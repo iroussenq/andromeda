@@ -19,7 +19,7 @@ public class FarmaceuticoServiceImpl implements FarmaceuticoService {
 
     @Override
     public List<Farmaceutico> consultar() {
-        return farmaceuticoRepository.pegaTodosOsFarmaceuticos();;
+        return farmaceuticoRepository.pegaTodosOsFarmaceuticos();
     }
 
     @Override
