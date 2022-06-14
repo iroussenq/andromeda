@@ -28,23 +28,23 @@ public class PedidoController {
         return LIST;
     }
 
-    @PostMapping("/cadastrar")
-    public Pedido cadastrar(@RequestBody PedidoModel model) {
-
-        var cliente = ClienteController.LIST.stream()
-                .filter(c -> c.getId().equals(model.getIdCliente()))
-                .findFirst()
-                .orElseThrow(NaoExisteException::new);
-
-        var farmaceutico = FarmaceuticoController.LIST.stream()
-                .filter(c -> c.getId().equals(model.getIdFarmaceutico()))
-                .findFirst()
-                .orElseThrow(NaoExisteException::new);
-
-        var pedido = new Pedido(cliente, farmaceutico);
-        LIST.add(pedido);
-        return pedido;
-    }
+//    @PostMapping("/cadastrar")
+//    public Pedido cadastrar(@RequestBody PedidoModel model) {
+//
+//        var cliente = ClienteController.LIST.stream()
+//                .filter(c -> c.getId().equals(model.getIdCliente()))
+//                .findFirst()
+//                .orElseThrow(NaoExisteException::new);
+//
+//        var farmaceutico = FarmaceuticoController.LIST.stream()
+//                .filter(c -> c.getId().equals(model.getIdFarmaceutico()))
+//                .findFirst()
+//                .orElseThrow(NaoExisteException::new);
+//
+//        var pedido = new Pedido(cliente, farmaceutico);
+//        LIST.add(pedido);
+//        return pedido;
+//    }
 
     @PutMapping("/adicionar-produto/{id}")
     public Pedido adicionarProduto(@PathVariable UUID id, @RequestBody AdicionarProdutoModel model) {
@@ -54,7 +54,7 @@ public class PedidoController {
                 .orElseThrow(NaoExisteException::new);
 
         var produtos = model.getIdsProdutos().stream()
-                .map(idProduto-> {
+                .map(idProduto -> {
                     return produtoService.consultar(idProduto);
                 }).collect(Collectors.toList());
 

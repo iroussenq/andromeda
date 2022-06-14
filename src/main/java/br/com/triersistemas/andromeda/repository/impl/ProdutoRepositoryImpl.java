@@ -21,7 +21,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
 
     @Override
     public Optional<Produto> pegarDoPote(UUID id) {
-       return LIST.stream().filter(produto -> id.equals(produto.getId())).findFirst();
+        return LIST.stream().filter(produto -> id.equals(produto.getId())).findFirst();
     }
 
     @Override

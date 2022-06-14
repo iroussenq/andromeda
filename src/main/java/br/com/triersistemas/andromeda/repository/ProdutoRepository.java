@@ -8,7 +8,11 @@ import java.util.UUID;
 
 public interface ProdutoRepository {
     List<Produto> pegarTodosDoPote();
+
     Optional<Produto> pegarDoPote(UUID id);
+
     void enfiarNoPote(Produto produto);
+
     void jogarParaForaDoPote(Produto produto);
+
 }

@@ -7,10 +7,14 @@ import java.util.List;
 import java.util.UUID;
 
 public interface FarmaceuticoService {
-        List<Farmaceutico> consultar();
-        Farmaceutico consultar(UUID id);
-        Farmaceutico cadastrar(FarmaceuticoModel model);
-        Farmaceutico alterar(UUID id, FarmaceuticoModel model);
-        Farmaceutico remover(UUID id);
+    List<Farmaceutico> consultar();
+
+    Farmaceutico consultar(UUID id);
+
+    Farmaceutico cadastrar(FarmaceuticoModel model);
+
+    Farmaceutico alterar(UUID id, FarmaceuticoModel model);
+
+    Farmaceutico remover(UUID id);
 
 }

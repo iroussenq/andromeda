@@ -31,7 +31,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente cadastrar(ClienteModel model) {
-        Cliente cliente = new Cliente(model.getNome(),model.getNiver(),model.getNome(), model.getEmail());
+        Cliente cliente = new Cliente(model.getNome(), model.getNiver(), model.getNome(), model.getEmail());
         clienteRepository.inserirCliente(cliente);
         return cliente;
     }

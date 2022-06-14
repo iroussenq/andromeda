@@ -29,7 +29,7 @@ public class FarmaceuticoServiceImpl implements FarmaceuticoService {
 
     @Override
     public Farmaceutico cadastrar(FarmaceuticoModel model) {
-        Farmaceutico f = new Farmaceutico(model.getNome(),model.getNiver(),model.getCpf());
+        Farmaceutico f = new Farmaceutico(model.getNome(), model.getNiver(), model.getCpf());
         farmaceuticoRepository.inserirFarmaceutico(f);
         return f;
     }
@@ -37,7 +37,7 @@ public class FarmaceuticoServiceImpl implements FarmaceuticoService {
     @Override
     public Farmaceutico alterar(UUID id, FarmaceuticoModel model) {
         Farmaceutico f = this.consultar(id);
-        f.editar(model.getNome(),model.getNiver(),model.getCpf());
+        f.editar(model.getNome(), model.getNiver(), model.getCpf());
         return f;
     }
 

@@ -24,12 +24,12 @@ public class FornecedorServiceImpl implements FornecedorService {
 
     @Override
     public Fornecedor consultar(UUID id) {
-       return fornecedorRepository.pegaUmFornecedor(id).orElseThrow(NaoExisteException::new);
+        return fornecedorRepository.pegaUmFornecedor(id).orElseThrow(NaoExisteException::new);
     }
 
     @Override
     public Fornecedor cadastrar(FornecedorModel model) {
-        Fornecedor fornecedor = new Fornecedor(model.getNome(),model.getNiver(),model.getCnpj());
+        Fornecedor fornecedor = new Fornecedor(model.getNome(), model.getNiver(), model.getCnpj());
         fornecedorRepository.inserirFornecedor(fornecedor);
         return fornecedor;
     }
