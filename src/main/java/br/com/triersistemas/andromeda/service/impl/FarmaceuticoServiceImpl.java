@@ -19,32 +19,39 @@ public class FarmaceuticoServiceImpl implements FarmaceuticoService {
 
     @Override
     public List<Farmaceutico> consultar() {
-        return farmaceuticoRepository.pegaTodosOsFarmaceuticos();
+        return farmaceuticoRepository.pegarTodosDoPote();
     }
 
     @Override
     public Farmaceutico consultar(UUID id) {
-        return farmaceuticoRepository.pegaUmFarmaceutico(id).orElseThrow(NaoExisteException::new);
+        return farmaceuticoRepository.pegarDoPote(id).orElseThrow(NaoExisteException::new);
+    }
+
+    @Override
+    public Farmaceutico cadastrarRandom() {
+        Farmaceutico farmaceutico = new Farmaceutico();
+        farmaceuticoRepository.enfiarNoPote(farmaceutico);
+        return farmaceutico;
     }
 
     @Override
     public Farmaceutico cadastrar(FarmaceuticoModel model) {
-        Farmaceutico f = new Farmaceutico(model.getNome(), model.getNiver(), model.getCpf());
-        farmaceuticoRepository.inserirFarmaceutico(f);
-        return f;
+        Farmaceutico farmaceutico = new Farmaceutico(model.getNome(), model.getNiver(), model.getCpf());
+        farmaceuticoRepository.enfiarNoPote(farmaceutico);
+        return farmaceutico;
     }
 
     @Override
     public Farmaceutico alterar(UUID id, FarmaceuticoModel model) {
-        Farmaceutico f = this.consultar(id);
-        f.editar(model.getNome(), model.getNiver(), model.getCpf());
-        return f;
+        Farmaceutico farmaceutico = this.consultar(id);
+        farmaceutico.editar(model.getNome(), model.getNiver(), model.getCpf());
+        return farmaceutico;
     }
 
     @Override
     public Farmaceutico remover(UUID id) {
-        Farmaceutico f = this.consultar(id);
-        farmaceuticoRepository.excluirFarmaceutico(f);
-        return f;
+        Farmaceutico farmaceutico = this.consultar(id);
+        farmaceuticoRepository.jogarParaForaDoPote(farmaceutico);
+        return farmaceutico;
     }
 }

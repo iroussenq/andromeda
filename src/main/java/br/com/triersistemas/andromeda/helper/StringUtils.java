@@ -7,8 +7,7 @@ import java.util.SplittableRandom;
 
 public class StringUtils {
 
-    private StringUtils() {
-    }
+    private StringUtils() { }
 
     public static String getRandomName() {
         List<String> nomes = new ArrayList<>();

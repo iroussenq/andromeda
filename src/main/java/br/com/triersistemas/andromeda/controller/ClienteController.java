@@ -6,7 +6,7 @@ import br.com.triersistemas.andromeda.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,12 +23,12 @@ public class ClienteController {
     }
 
     @PostMapping("/cadastrar")
-    public Cliente cadastrar(@RequestBody ClienteModel model) {
+    public Cliente cadastrar(@RequestBody @Valid ClienteModel model) {
         return clienteService.cadastrar(model);
     }
 
     @PutMapping("/alterar/{id}")
-    public Cliente alterar(@PathVariable UUID id, @RequestBody ClienteModel model) {
+    public Cliente alterar(@PathVariable UUID id, @RequestBody @Valid ClienteModel model) {
         return clienteService.alterar(id, model);
     }
 
@@ -37,4 +37,3 @@ public class ClienteController {
         return clienteService.remover(id);
     }
 }
-

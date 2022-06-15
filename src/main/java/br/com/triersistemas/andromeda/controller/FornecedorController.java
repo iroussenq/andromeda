@@ -1,16 +1,11 @@
 package br.com.triersistemas.andromeda.controller;
 
-import br.com.triersistemas.andromeda.domain.Farmaceutico;
 import br.com.triersistemas.andromeda.domain.Fornecedor;
-import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
-import br.com.triersistemas.andromeda.model.FarmaceuticoModel;
 import br.com.triersistemas.andromeda.model.FornecedorModel;
-import br.com.triersistemas.andromeda.service.FarmaceuticoService;
 import br.com.triersistemas.andromeda.service.FornecedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,6 +24,11 @@ public class FornecedorController {
     @PostMapping("/cadastrar")
     public Fornecedor cadastrar(@RequestBody FornecedorModel model) {
         return fornecedorService.cadastrar(model);
+    }
+
+    @PostMapping("/cadastrar-random")
+    public Fornecedor cadastrarRandom() {
+        return fornecedorService.cadastrarRandom();
     }
 
     @PutMapping("/alterar/{id}")

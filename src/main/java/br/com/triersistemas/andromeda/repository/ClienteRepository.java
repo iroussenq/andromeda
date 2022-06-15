@@ -8,11 +8,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ClienteRepository {
-    List<Cliente> pegaTodosOsClientes();
-
-    Optional<Cliente> pegaUmCliente(UUID id);
-
-    void inserirCliente(Cliente cliente);
-
-    void excluirCliente(Cliente cliente);
+    List<Cliente> pegarTodosDoPote();
+    Optional<Cliente> pegarDoPote(UUID id);
+    void enfiarNoPote(Cliente cliente);
+    void jogarParaForaDoPote(Cliente cliente);
 }

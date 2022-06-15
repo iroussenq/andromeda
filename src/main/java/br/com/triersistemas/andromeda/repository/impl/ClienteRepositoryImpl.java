@@ -1,7 +1,6 @@
 package br.com.triersistemas.andromeda.repository.impl;
 
 import br.com.triersistemas.andromeda.domain.Cliente;
-import br.com.triersistemas.andromeda.domain.Produto;
 import br.com.triersistemas.andromeda.repository.ClienteRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,22 +15,22 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     private static final List<Cliente> LIST = new ArrayList<>();
 
     @Override
-    public List<Cliente> pegaTodosOsClientes() {
+    public List<Cliente> pegarTodosDoPote() {
         return LIST;
     }
 
     @Override
-    public Optional<Cliente> pegaUmCliente(UUID id) {
-        return LIST.stream().filter(Cliente -> id.equals(Cliente.getId())).findFirst();
+    public Optional<Cliente> pegarDoPote(UUID id) {
+       return LIST.stream().filter(cliente -> id.equals(cliente.getId())).findFirst();
     }
 
     @Override
-    public void inserirCliente(Cliente cliente) {
+    public void enfiarNoPote(Cliente cliente) {
         LIST.add(cliente);
     }
 
     @Override
-    public void excluirCliente(Cliente cliente) {
+    public void jogarParaForaDoPote(Cliente cliente) {
         LIST.remove(cliente);
     }
 }

@@ -6,12 +6,11 @@ import br.com.triersistemas.andromeda.service.FarmaceuticoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/farmaceutico")
 public class FarmaceuticoController {
 
     @Autowired
@@ -27,6 +26,11 @@ public class FarmaceuticoController {
         return farmaceuticoService.cadastrar(model);
     }
 
+    @PostMapping("/cadastrar-random")
+    public Farmaceutico cadastrarRandom() {
+        return farmaceuticoService.cadastrarRandom();
+    }
+
     @PutMapping("/alterar/{id}")
     public Farmaceutico alterar(@PathVariable UUID id, @RequestBody FarmaceuticoModel model) {
         return farmaceuticoService.alterar(id, model);
@@ -37,4 +41,3 @@ public class FarmaceuticoController {
         return farmaceuticoService.remover(id);
     }
 }
-

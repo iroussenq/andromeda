@@ -19,18 +19,25 @@ public class FornecedorServiceImpl implements FornecedorService {
 
     @Override
     public List<Fornecedor> consultar() {
-        return fornecedorRepository.pegaTodosOsFornecedores();
+        return fornecedorRepository.pegarTodosDoPote();
     }
 
     @Override
     public Fornecedor consultar(UUID id) {
-        return fornecedorRepository.pegaUmFornecedor(id).orElseThrow(NaoExisteException::new);
+        return fornecedorRepository.pegarDoPote(id).orElseThrow(NaoExisteException::new);
+    }
+
+    @Override
+    public Fornecedor cadastrarRandom() {
+        Fornecedor fornecedor = new Fornecedor();
+        fornecedorRepository.enfiarNoPote(fornecedor);
+        return fornecedor;
     }
 
     @Override
     public Fornecedor cadastrar(FornecedorModel model) {
         Fornecedor fornecedor = new Fornecedor(model.getNome(), model.getNiver(), model.getCnpj());
-        fornecedorRepository.inserirFornecedor(fornecedor);
+        fornecedorRepository.enfiarNoPote(fornecedor);
         return fornecedor;
     }
 
@@ -44,7 +51,7 @@ public class FornecedorServiceImpl implements FornecedorService {
     @Override
     public Fornecedor remover(UUID id) {
         Fornecedor fornecedor = this.consultar(id);
-        fornecedorRepository.excluirFornecedor(fornecedor);
+        fornecedorRepository.jogarParaForaDoPote(fornecedor);
         return fornecedor;
     }
 }

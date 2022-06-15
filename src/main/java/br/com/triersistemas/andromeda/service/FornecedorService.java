@@ -8,13 +8,9 @@ import java.util.UUID;
 
 public interface FornecedorService {
     List<Fornecedor> consultar();
-
     Fornecedor consultar(UUID id);
-
+    Fornecedor cadastrarRandom();
     Fornecedor cadastrar(FornecedorModel model);
-
     Fornecedor alterar(UUID id, FornecedorModel model);
-
     Fornecedor remover(UUID id);
-
 }
