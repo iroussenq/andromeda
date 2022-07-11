@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ClienteService {
-    List<Cliente> consultar();
-    Cliente consultar(UUID id);
-    Cliente cadastrar(ClienteModel model);
-    Cliente alterar(UUID id, ClienteModel model);
-    Cliente remover(UUID id);
+    List<ClienteModel> consultar();
+    ClienteModel consultar(UUID id);
+    ClienteModel cadastrar(ClienteModel model);
+    ClienteModel alterar(ClienteModel model);
+    ClienteModel remover(UUID id);
 }
