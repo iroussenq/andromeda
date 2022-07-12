@@ -17,14 +17,14 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    @GetMapping("/consultar/{id}")
-    public ClienteModel consultarPorId(@PathVariable UUID id) {
-        return clienteService.consultar(id);
-    }
-
     @GetMapping("/consultar")
     public List<ClienteModel> consultar() {
         return clienteService.consultar();
+    }
+
+    @GetMapping("/consultar/{id}")
+    public ClienteModel consultarPorId(@PathVariable UUID id) {
+        return clienteService.consultar(id);
     }
 
     @PostMapping("/cadastrar")

@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @MappedSuperclass
 public abstract class Pessoa {
+
     @Id
     private UUID id;
     private String nome;

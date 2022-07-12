@@ -1,6 +1,5 @@
 package br.com.triersistemas.andromeda.service;
 
-import br.com.triersistemas.andromeda.domain.Cliente;
 import br.com.triersistemas.andromeda.model.ClienteModel;
 
 import java.util.List;
