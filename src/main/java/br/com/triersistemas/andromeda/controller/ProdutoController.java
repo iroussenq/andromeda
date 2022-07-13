@@ -2,6 +2,7 @@ package br.com.triersistemas.andromeda.controller;
 
 import br.com.triersistemas.andromeda.domain.Produto;
 import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
+import br.com.triersistemas.andromeda.model.ClienteModel;
 import br.com.triersistemas.andromeda.model.ProdutoModel;
 import br.com.triersistemas.andromeda.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +20,27 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @GetMapping("/consultar")
-    public List<Produto> consultar() {
+    public List<ProdutoModel> consultar() {
         return produtoService.consultar();
     }
 
+    @GetMapping("/consultar/{id}")
+    public ProdutoModel consultarPorIds(@PathVariable UUID id) {
+        return produtoService.consultar(id);
+    }
+
     @PostMapping("/cadastrar")
-    public Produto cadastrar(@RequestBody ProdutoModel model) {
+    public ProdutoModel cadastrar(@RequestBody ProdutoModel model) {
         return produtoService.cadastrar(model);
     }
 
-    @PutMapping("/alterar/{id}")
-    public Produto alterar(@PathVariable UUID id, @RequestBody ProdutoModel model) {
-        return produtoService.alterar(id, model);
+    @PutMapping("/alterar")
+    public ProdutoModel alterar(@RequestBody ProdutoModel model) {
+        return produtoService.alterar(model);
     }
 
     @DeleteMapping("/remover/{id}")
-    public Produto remover(@PathVariable UUID id) {
+    public ProdutoModel remover(@PathVariable UUID id) {
         return produtoService.remover(id);
     }
 }

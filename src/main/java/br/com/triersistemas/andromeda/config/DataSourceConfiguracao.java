@@ -11,7 +11,7 @@ public class DataSourceConfiguracao {
 
     @Bean
     public DataSource dataSource() {
-        String url = "jdbc:postgresql://localhost:5434/andromeda";
+        String url = "jdbc:postgresql://localhost:5432/andromeda";
         String usuario = "postgres";
         String senha = "postgres";
 

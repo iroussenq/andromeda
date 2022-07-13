@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.UUID;
 
 public interface FornecedorService {
-    List<Fornecedor> consultar();
-    Fornecedor consultar(UUID id);
-    Fornecedor cadastrarRandom();
-    Fornecedor cadastrar(FornecedorModel model);
-    Fornecedor alterar(UUID id, FornecedorModel model);
-    Fornecedor remover(UUID id);
+    List<FornecedorModel> consultar();
+    FornecedorModel consultar(UUID id);
+    FornecedorModel cadastrarRandom();
+    FornecedorModel cadastrar(FornecedorModel model);
+    FornecedorModel alterar(FornecedorModel model);
+    FornecedorModel remover(UUID id);
 }

@@ -28,6 +28,10 @@ public class ClienteServiceImpl implements ClienteService {
         return new ClienteModel(this.buscarPorId(id));
     }
 
+    protected Cliente consultaPorCliente(UUID id){
+        return this.buscarPorId(id);
+    }
+
     @Override
     public ClienteModel cadastrar(ClienteModel model) {
         Cliente cliente = new Cliente(model);

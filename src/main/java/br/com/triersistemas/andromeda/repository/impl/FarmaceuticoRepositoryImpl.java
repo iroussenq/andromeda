@@ -10,27 +10,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public class FarmaceuticoRepositoryImpl implements FarmaceuticoRepository {
+public class FarmaceuticoRepositoryImpl {
 
-    private static final List<Farmaceutico> LIST = new ArrayList<>();
-
-    @Override
-    public List<Farmaceutico> pegarTodosDoPote() {
-        return LIST;
-    }
-
-    @Override
-    public Optional<Farmaceutico> pegarDoPote(UUID id) {
-       return LIST.stream().filter(farmaceutico -> id.equals(farmaceutico.getId())).findFirst();
-    }
-
-    @Override
-    public void enfiarNoPote(Farmaceutico farmaceutico) {
-        LIST.add(farmaceutico);
-    }
-
-    @Override
-    public void jogarParaForaDoPote(Farmaceutico farmaceutico) {
-        LIST.remove(farmaceutico);
-    }
 }

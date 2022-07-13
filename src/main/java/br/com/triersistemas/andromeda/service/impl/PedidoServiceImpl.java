@@ -1,8 +1,6 @@
 package br.com.triersistemas.andromeda.service.impl;
 
-import br.com.triersistemas.andromeda.domain.Cliente;
-import br.com.triersistemas.andromeda.domain.Pedido;
-import br.com.triersistemas.andromeda.domain.Produto;
+import br.com.triersistemas.andromeda.domain.*;
 import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
 import br.com.triersistemas.andromeda.model.AdicionarProdutoModel;
 import br.com.triersistemas.andromeda.model.PagarPedidoModel;
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class PedidoServiceImpl implements PedidoService {
@@ -25,44 +24,55 @@ public class PedidoServiceImpl implements PedidoService {
     private PedidoRepository pedidoRepository;
 
     @Autowired
-    private FarmaceuticoService farmaceuticoService;
+    private FarmaceuticoServiceImpl farmaceuticoServiceImpl;
 
     @Autowired
-    private ClienteService clienteService;
+    private ClienteServiceImpl clienteServiceImpl;
 
     @Autowired
     private ProdutoService produtoService;
 
+    @Autowired
+    private ProdutoServiceImpl produtoServiceImpl;
+
     @Override
-    public List<Pedido> consultar() {
-        return pedidoRepository.pegarTodosDoPote();
+    public List<PedidoModel> consultar() {
+        return pedidoRepository.findAll().stream().map(PedidoModel::new).toList();
     }
 
     @Override
-    public Pedido consultar(UUID id) {
-        return pedidoRepository.pegarDoPote(id).orElseThrow(NaoExisteException::new);
+    public PedidoModel consultar(UUID id) {
+        return new PedidoModel((this.buscarPorId(id)));
     }
 
     @Override
-    public Pedido cadastrar(PedidoModel model) {
-        var cliente = new Cliente(clienteService.consultar(model.getIdCliente()));
-        var farmaceutico = farmaceuticoService.consultar(model.getIdFarmaceutico());
+    public PedidoModel cadastrar (PedidoModel model){
+        var cliente = clienteServiceImpl.consultaPorCliente(model.getCliente().getId());
+        var farmaceutico = farmaceuticoServiceImpl.consultaPorFarmaceutico(model.getFarmaceutico().getId());
         var pedido = new Pedido(cliente, farmaceutico);
-        pedidoRepository.enfiarNoPote(pedido);
-        return pedido;
+        return new PedidoModel(pedidoRepository.save(pedido));
     }
 
     @Override
-    public Pedido adicionarProduto(UUID id, AdicionarProdutoModel model) {
-        Pedido pedido = this.consultar(id);
-        List<Produto> produtos = produtoService.consultar(model.getIdsProdutos());
+    public PedidoModel adicionarProduto(UUID id, AdicionarProdutoModel model) {
+        Pedido pedido = this.buscarPorId(id);
+        List<Produto> produtos = produtoServiceImpl.consultarProdutos(model.getIdsProdutos());
         pedido.addProdutos(produtos);
-        return pedido;
+        return new PedidoModel(pedidoRepository.save(pedido));
     }
 
     @Override
-    public Pedido pagar(UUID id, PagarPedidoModel model) {
-        var pedido = this.consultar(id);
+    public Pedido pagar (UUID id, PagarPedidoModel model){
+        var pedido = this.buscarPorId(id);
         return pedido.pagar(model.getValor());
     }
-}
+
+
+    private Pedido buscarPorId(UUID id){
+        return this.pedidoRepository.findById(id).orElseThrow(NaoExisteException::new);
+    }
+
+
+    }
+
+

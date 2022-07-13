@@ -32,10 +32,10 @@ public class PedidoController {
         return pedidoService.cadastrar(model);
     }
 
-    @PutMapping("/adicionar-produto/{id}")
-    public Pedido adicionarProduto(@PathVariable UUID id, @RequestBody AdicionarProdutoModel model) {
-        return pedidoService.adicionarProduto(id, model);
-    }
+//    @PutMapping("/adicionar-produto/{id}")
+//    public Pedido adicionarProduto(@PathVariable UUID id, @RequestBody AdicionarProdutoModel model) {
+//        return pedidoService.adicionarProduto(id, model);
+//    }
 
     @PutMapping("/pagar/{id}")
     public Pedido pagar(@PathVariable UUID id, @RequestBody PagarPedidoModel model) {

@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface PedidoService {
-    List<Pedido> consultar();
-    Pedido consultar(UUID id);
-    Pedido cadastrar(PedidoModel model);
-    Pedido adicionarProduto(UUID id, AdicionarProdutoModel model);
+    List<PedidoModel> consultar();
+    PedidoModel consultar(UUID id);
+    PedidoModel cadastrar(PedidoModel model);
+//    Pedido adicionarProduto(UUID id, AdicionarProdutoModel model);
     Pedido pagar(UUID id, PagarPedidoModel model);
 }
