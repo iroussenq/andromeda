@@ -58,7 +58,13 @@ public class ProdutoServiceImpl implements ProdutoService {
         return new ProdutoModel(produto);
     }
 
+    @Override
+    public List<ProdutoModel> buscarPorPedido(UUID idPedido) {
+        return produtoRepository.buscarPorPedido(idPedido).stream().map(ProdutoModel::new).toList();
+    }
+
     private Produto buscarPorId(UUID id) {
         return this.produtoRepository.findById(id).orElseThrow(NaoExisteException::new);
     }
+
 }

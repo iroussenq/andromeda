@@ -3,6 +3,7 @@ package br.com.triersistemas.andromeda.model;
 import br.com.triersistemas.andromeda.domain.Pedido;
 import br.com.triersistemas.andromeda.domain.Produto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Getter
+@NoArgsConstructor
 public class PedidoModel {
     private UUID id;
     private ClienteModel cliente;

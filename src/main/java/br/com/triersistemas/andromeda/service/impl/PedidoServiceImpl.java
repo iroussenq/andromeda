@@ -3,6 +3,7 @@ package br.com.triersistemas.andromeda.service.impl;
 import br.com.triersistemas.andromeda.domain.*;
 import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
 import br.com.triersistemas.andromeda.model.AdicionarProdutoModel;
+import br.com.triersistemas.andromeda.model.ClienteModel;
 import br.com.triersistemas.andromeda.model.PagarPedidoModel;
 import br.com.triersistemas.andromeda.model.PedidoModel;
 import br.com.triersistemas.andromeda.repository.PedidoRepository;
@@ -62,9 +63,17 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
-    public Pedido pagar (UUID id, PagarPedidoModel model){
+    public PedidoModel pagar (UUID id, PagarPedidoModel model){
         var pedido = this.buscarPorId(id);
-        return pedido.pagar(model.getValor());
+        return new PedidoModel(pedido.pagar(model.getValor()));
+    }
+
+    @Override
+    public PedidoModel remover(UUID id) {
+        Pedido pedido = this.buscarPorId(id);
+        pedidoRepository.delete(pedido);
+
+        return new PedidoModel(pedido);
     }
 
 
